@@ -16,6 +16,14 @@ public class SampleEntity {
     @JsonIgnore
     private UUID baz;
 
+    public SampleEntity() {
+    }
+
+    public SampleEntity(String foo, Double bar) {
+        this.foo = foo;
+        this.bar = bar;
+    }
+
     public SampleEntity(String foo, Double bar, UUID baz) {
         this.foo = foo;
         this.bar = bar;

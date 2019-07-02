@@ -8,6 +8,8 @@ import ru.cft.starterkit.entity.SampleEntity;
 import ru.cft.starterkit.exception.ObjectNotFoundException;
 import ru.cft.starterkit.service.SampleEntityService;
 
+import java.util.Collection;
+
 @RestController
 public class SampleEntityController {
 
@@ -21,14 +23,11 @@ public class SampleEntityController {
     @RequestMapping(
             method = RequestMethod.POST,
             path = "/sample",
-            consumes = "application/x-www-form-urlencoded",
+            consumes = "application/json",
             produces = "application/json"
     )
-    public SampleEntity add(
-            @RequestParam(name = "foo") String foo,
-            @RequestParam(name = "bar", defaultValue = "1.1") Double bar
-    ) {
-        return sampleEntityService.add(foo, bar);
+    public SampleEntity add( @RequestBody SampleEntity sampleEntity) {
+        return sampleEntityService.add(sampleEntity);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/sample/{id}", produces = "application/json")
@@ -38,6 +37,10 @@ public class SampleEntityController {
         } catch (ObjectNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
+    }
+    @RequestMapping(method = RequestMethod.GET, path = "/samples", produces = "application/json")
+    public Collection<SampleEntity> get(){
+            return sampleEntityService.get();
     }
 
 }
